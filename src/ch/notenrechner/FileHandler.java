@@ -1,9 +1,11 @@
 package ch.notenrechner;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.Scanner;
 
 
@@ -12,10 +14,22 @@ public class FileHandler {
 	String fileContentBackup = "";
 	private ArrayList<Note> al = new ArrayList<Note> ();
 	File f;
-	private Formatter fo;
+	private BufferedWriter fo;
 	private String fileName = "";
 	private boolean firstTime = true;
 	
+	private void rereadFile() {
+		try {
+			Scanner s = new Scanner(f);
+			s.useDelimiter("\\Z");
+			while(s.hasNext()) {
+				fileContentBackup += s.next();
+			}
+			s.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 	public void deleteSpecificLine(int line) {
 		ArrayList<String> fc = new ArrayList<String>();
 		File fn = new File(fileName + ".new");
@@ -27,11 +41,12 @@ public class FileHandler {
 			}
 			s.close();
 			fc.remove(line);
-			fo = new Formatter(fileName + ".new");
+			fo = new BufferedWriter(new FileWriter(fileName + ".new", true));
 			if(fc.size() != 0) {
-				fo.format("%s", fc.get(0));
+				fo.write(fc.get(0));
 				for(int i = 1; i<fc.size(); i++) {
-					fo.format("%n%s", fc.get(i));
+					fo.newLine();
+					fo.write(fc.get(i));
 				}
 			}
 			
@@ -44,29 +59,28 @@ public class FileHandler {
 			e.printStackTrace();
 		}
 		
-		
+		rereadFile();
 	}
 	public void writeFile(String w) {
-		if(f.exists()) {
-			try {
-				fo = new Formatter(f);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+		try {
+			if(f.exists()) {
+				fo = new BufferedWriter(new FileWriter(fileName, true));
+			}else {
+				f.createNewFile();
+				fo = new BufferedWriter(new FileWriter(f, true));
 			}
 			if(firstTime) {
-				fo.format("%s",fileContentBackup );
+				
+			}else {
+				fo.newLine();
 			}
-			fo.format("%s", w);
-		}else {
-			try {
-				fo = new Formatter(fileName);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-			fo.format("%s", w);
+			fo.write(w);
+			fo.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		firstTime = false;
-		fo.close();
+		
+		rereadFile();
 	}
 	
 	public ArrayList<Note> readFile() {
@@ -89,7 +103,6 @@ public class FileHandler {
 			e.printStackTrace();
 			return null;
 		}
-		
 	}
 	
 	private Note readNextNote(Scanner s) {
@@ -111,19 +124,12 @@ public class FileHandler {
 	public FileHandler(String dateiname) {
 		fileName = dateiname;
 		f = new File(fileName);
-		Scanner s = null;
+		if(f.exists()) {
+			rereadFile();
+		}
+		
 		if(f.exists()) {
 			System.out.println("Die Datei existiert schon!");
-			try {
-				s = new Scanner(f);
-				s.useDelimiter("\\Z");
-				while(s.hasNext()) {
-					fileContentBackup += s.next();
-				}
-				s.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}	
 		}else {
 			System.out.println("Die Datei existiert noch nicht. Sie wird beim hineinschreiben erstellt!");
 		}

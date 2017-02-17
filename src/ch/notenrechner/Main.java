@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner ui = new Scanner(System.in);
 		FileHandler fh = null;
-		System.out.println("Notenrechner v1 by Georg Rieger \\\\ Eyja \\\\ Jiikuy");
+		System.out.println("Notenrechner by Georg Rieger");
 		System.out.println("");
 		System.out.println("Geben sie den Dateinamen ein!");
 		fh = new FileHandler("."+ System.getProperty("file.separator") +  ui.nextLine() + ".txt");
@@ -20,7 +20,7 @@ public class Main {
 		
 		ui.close();
 	}
-	
+
 	public static void befehl(Scanner ui, FileHandler fh) throws InterruptedException {
 		Thread.sleep(1000);
 		ArrayList<Note> al = fh.readFile();
@@ -35,8 +35,10 @@ public class Main {
 		System.out.println("Durchschnitt aller Noten ausgeben: d");
 		System.out.println("Eine Note hinzufügen: a");
 		System.out.println("Eine bestimmte Note löschen: r");
-		System.out.println("Alle Noten eines Faches ausgeben: fp");
+		System.out.println("Alle Noten eines Fachs ausgeben: fp");
 		System.out.println("Durchschnitt eines Fachs ausgeben: fd");
+		System.out.println("Alle Noten eines Fachs löschen: fr");
+		System.out.println("WARNUNG! ALLE Noten löschen: ar");
 		
 		String b = ui.next();
 		/* Hier bestimmt die Methode, welcher Vorgang ausgeführt werden soll. Der String b ist dabei der Befehl.*/
@@ -110,7 +112,7 @@ public class Main {
 				count++;
 			}
 			durchschnitt /= count1;
-			System.out.println("Der Durchschnitt des Faches " + fach + " beträgt " + durchschnitt + ".");
+			System.out.println("Der Durchschnitt des Fachs " + fach + " beträgt " + durchschnitt + ".");
 			befehl(ui, fh);
 			break;
 		case "fp":
@@ -128,7 +130,37 @@ public class Main {
 				count++;
 			}
 			break;
+		case "fr":
+			if(!fh.f.exists() || al.isEmpty()) {
+				System.out.println("Es sind noch keine Noten vorhanden!");
+				befehl(ui, fh);
+			}
+			System.out.println("Geben sie das Fach ein!");
+			fach = ui.next();
+			while(count<al.size()) {
+				if(fach.equals(al.get(count).fach)) {
+					fh.deleteSpecificLine(count);
+				}
+				count++;
+			}
+			System.out.println("Die Noten wurden gelöscht!");
+			befehl(ui, fh);
+			break;
+		case "ar":
+			if(!fh.f.exists() || al.isEmpty()) {
+				System.out.println("Es sind noch keine Noten vorhanden!");
+				befehl(ui, fh);
+			}
+			System.out.println("Wollen sie wirklich alle Noten löschen? (y/n)");
+			if(ui.next().equals("n")) {
+				befehl(ui,fh);
+			}
+			fh.f.delete();
+			System.out.println("Alle Noten wurden gelöscht!");
+			befehl(ui, fh);
+			break;
 		}
+		
 		
 	}
 }
