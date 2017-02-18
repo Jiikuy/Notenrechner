@@ -31,7 +31,6 @@ public class Main {
 		double durchschnitt = 0;
 		if(!fh.f.exists() || al.isEmpty()) {
 			System.out.println("Es sind noch keine Noten vorhanden!");
-			befehl(ui, fh);
 		}
 		while(count<al.size()) {
 			System.out.println(count+1 + " " + al.get(count).wert + " "+ al.get(count).fach);
