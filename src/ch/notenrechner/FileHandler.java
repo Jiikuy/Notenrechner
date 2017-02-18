@@ -11,36 +11,35 @@ import java.util.Scanner;
 
 public class FileHandler {
 	
-	String fileContentBackup = "";
 	private ArrayList<Note> al = new ArrayList<Note> ();
 	File f;
 	private BufferedWriter fo;
 	private String fileName = "";
-	private boolean firstTime = true;
 	
-	private void rereadFile() {
-		try {
-			Scanner s = new Scanner(f);
-			s.useDelimiter("\\Z");
-			while(s.hasNext()) {
-				fileContentBackup += s.next();
-			}
-			s.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	public void deleteSpecificLine(int line) {
+	public void deleteSpecificLine(int...line) {
 		ArrayList<String> fc = new ArrayList<String>();
 		File fn = new File(fileName + ".new");
 		File f = new File(fileName);
 		try {
+			int count = 0;
 			Scanner s = new Scanner(f);
 			while(s.hasNextLine()) {
 				fc.add(s.nextLine());
 			}
 			s.close();
-			fc.remove(line);
+			while(count<line.length) {
+				fc.set(line[count]-1, "");
+				count++;
+			}
+			count = 0;
+			while(count<fc.size()) {
+				if(fc.get(count).isEmpty()){
+					fc.remove(count);
+				} 
+				else {
+					count++;
+				}
+			}
 			fo = new BufferedWriter(new FileWriter(fileName + ".new", true));
 			if(fc.size() != 0) {
 				fo.write(fc.get(0));
@@ -59,28 +58,25 @@ public class FileHandler {
 			e.printStackTrace();
 		}
 		
-		rereadFile();
+		
 	}
 	public void writeFile(String w) {
 		try {
 			if(f.exists()) {
-				fo = new BufferedWriter(new FileWriter(fileName, true));
+				fo = new BufferedWriter(new FileWriter(f, true));
+				fo.newLine();
 			}else {
 				f.createNewFile();
 				fo = new BufferedWriter(new FileWriter(f, true));
 			}
-			if(firstTime) {
-				
-			}else {
-				fo.newLine();
-			}
+			
 			fo.write(w);
 			fo.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		rereadFile();
+		
 	}
 	
 	public ArrayList<Note> readFile() {
@@ -124,10 +120,6 @@ public class FileHandler {
 	public FileHandler(String dateiname) {
 		fileName = dateiname;
 		f = new File(fileName);
-		if(f.exists()) {
-			rereadFile();
-		}
-		
 		if(f.exists()) {
 			System.out.println("Die Datei existiert schon!");
 		}else {
