@@ -1,2 +1,3 @@
 # Notenrechner
-A calculator for school grades.
+A german calculator for school grades using Java.
+At the moment, there is no GUI.
