@@ -31,21 +31,21 @@ public class Main {
 		double durchschnitt = 0;
 		if(!fh.f.exists() || al.isEmpty()) {
 			System.out.println("Es sind noch keine Noten vorhanden!");
-		}
-		while(count<al.size()) {
-			System.out.println(count+1 + " " + al.get(count).wert + " "+ al.get(count).fach);
-			count++;
+		}else {
+			while(count<al.size()) {
+				System.out.println(count+1 + " " + al.get(count).wert + " "+ al.get(count).fach);
+				count++;
+			}
 		}
 		System.out.println();
 		System.out.println("Welcher Befehl soll ausgeführt werden?");
 		System.out.println("Folgendes ist möglich:");
-		System.out.println("Alle Noten ausgeben: p");
 		System.out.println("Durchschnitt aller Noten ausgeben: d");
 		System.out.println("Eine Note hinzufügen: a");
 		System.out.println("Eine bestimmte Note löschen: r");
 		System.out.println("Alle Noten eines Fachs ausgeben: fp");
 		System.out.println("Durchschnitt eines Fachs ausgeben: fd");
-		System.out.println("Alle Noten eines Fachs löschen: fr");
+		System.out.println("Alle Noten eines Fachs löschen: fr"); 
 		System.out.println("WARNUNG! ALLE Noten löschen: ar");
 		
 		String b = ui.next();
@@ -160,6 +160,9 @@ public class Main {
 			System.out.println("Alle Noten wurden gelöscht!");
 			befehl(ui, fh);
 			break;
+		default: 
+			System.out.println("Der Befehl wurde nicht gefunden!");
+			befehl(ui, fh);
 		}
 		
 		
