@@ -32,9 +32,8 @@ public class Main {
 		if(!fh.f.exists() || al.isEmpty()) {
 			System.out.println("Es sind noch keine Noten vorhanden!");
 		}else {
-			while(count<al.size()) {
-				System.out.println(count+1 + " " + al.get(count).wert + " "+ al.get(count).fach);
-				count++;
+			for(Note j: al) {
+				System.out.println(j.wert + " "+ j.fach);
 			}
 		}
 		System.out.println();
@@ -57,9 +56,8 @@ public class Main {
 				System.out.println("Es sind noch keine Noten vorhanden!");
 				befehl(ui, fh);
 			}
-			while(count<al.size()) {
-				durchschnitt += al.get(count).wert;
-				count++;
+			for(Note j: al) {
+				durchschnitt += j.wert;
 			}
 			durchschnitt /= al.size();
 			System.out.println("Der Durchschnitt beträgt " + durchschnitt + ".");
@@ -82,9 +80,9 @@ public class Main {
 				System.out.println("Es sind noch keine Noten vorhanden!");
 				befehl(ui, fh);
 			}
-			System.out.println("Welche Note soll gelöscht werden?");
-			while(count<al.size()) {
-				System.out.println(count+1 + " " + al.get(count).wert + " "+ al.get(count).fach);
+			System.out.println("Geben sie die Zeile der Note ein, die gelöscht werden soll!");
+			for(Note j: al) {
+				System.out.println(count+1 + j.wert + " "+ j.fach);
 				count++;
 			}
 			fh.deleteSpecificLine(ui.nextInt());
@@ -99,13 +97,11 @@ public class Main {
 			}
 			System.out.println("Geben sie das Fach ein!");
 			fach = ui.next();
-			while(count<al.size()) {
-				if(fach.equals(al.get(count).fach)) {
-					durchschnitt += al.get(count).wert;
+			for(Note j: al) {
+				if(fach.equals(j.fach)) {
+					durchschnitt += j.wert;
 					count1++;
 				}
-				al = fh.readFile();
-				count++;
 			}
 			durchschnitt /= count1;
 			System.out.println("Der Durchschnitt des Fachs " + fach + " beträgt " + durchschnitt + ".");
@@ -119,13 +115,12 @@ public class Main {
 			}
 			System.out.println("Geben sie das Fach ein!");
 			fach = ui.next();
-			while(count<al.size()) {
-				if(fach.equals(al.get(count).fach)) {
-					count1++;
-					System.out.println(count1 + " " + al.get(count).wert + " "+ al.get(count).fach);
+			for(Note j: al) {
+				if(fach.equals(j.fach)) {
+					System.out.println(j.wert + " "+ j.fach);
 				}
-				count++;
 			}
+
 			befehl(ui, fh);
 			break;
 		//Alle Noten eines Fachs löschen
