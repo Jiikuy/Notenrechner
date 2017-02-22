@@ -26,9 +26,9 @@ public class Main {
 		ArrayList<Note> al = fh.readFile();
 		ArrayList<Integer> dl = new ArrayList<Integer>();
 		int count = 0;
-		int count1 = 0;
 		String fach = "";
 		double durchschnitt = 0;
+        System.out.println();
 		if(!fh.f.exists() || al.isEmpty()) {
 			System.out.println("Es sind noch keine Noten vorhanden!");
 		}else {
@@ -100,10 +100,10 @@ public class Main {
 			for(Note j: al) {
 				if(fach.equals(j.fach)) {
 					durchschnitt += j.wert;
-					count1++;
+					count++;
 				}
 			}
-			durchschnitt /= count1;
+			durchschnitt /= count;
 			System.out.println("Der Durchschnitt des Fachs " + fach + " beträgt " + durchschnitt + ".");
 			befehl(ui, fh);
 			break;
