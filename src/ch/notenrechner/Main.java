@@ -46,7 +46,7 @@ public class Main {
 		System.out.println("Durchschnitt eines Fachs ausgeben: fd");
 		System.out.println("Alle Noten eines Fachs löschen: fr"); 
 		System.out.println("WARNUNG! ALLE Noten löschen: ar");
-		
+		System.out.println("Das Programm schliessen: x");
 		String b = ui.next();
 		/* Hier bestimmt die Methode, welcher Vorgang ausgeführt werden soll. Der String b ist dabei der Befehl.*/
 		switch (b) {
@@ -155,6 +155,9 @@ public class Main {
 			System.out.println("Alle Noten wurden gelöscht!");
 			befehl(ui, fh);
 			break;
+      case "x":
+         System.exit(0);
+         break;
 		default: 
 			System.out.println("Der Befehl wurde nicht gefunden!");
 			befehl(ui, fh);
