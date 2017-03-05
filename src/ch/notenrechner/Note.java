@@ -30,8 +30,9 @@ public class Note {
 	}
 
 	
-	public Note(double wert2, String fach2) {
+	public Note(double wert2, String fach2, LocalDate datum2) {
 		wert = wert2;
 		fach = fach2;
+        datum = datum2;
 	}
 }

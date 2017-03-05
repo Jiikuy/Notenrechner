@@ -33,7 +33,7 @@ public class Main {
 			System.out.println("Es sind noch keine Noten vorhanden!");
 		}else {
 			for(Note j: al) {
-				System.out.println(j.getWert() + " "+ j.getFach());
+				System.out.println(j.getWert() + " "+ j.getFach() + " " + j.getDatum());
 			}
 		}
 		System.out.println();
@@ -69,7 +69,11 @@ public class Main {
 			String notenwert = ui.next();
 			System.out.println("Geben sie das Fach ein!");
 			fach = ui.next();
-			String wr = notenwert + " " + fach;
+            System.out.println("Geben sie das Datum des Tests ein! (YYYY-MM-TT)");
+            String datum = ui.next();
+            datum = datum.replace(".", "-");
+            datum = datum.replace(":", "-");
+			String wr = (notenwert + " " + fach + " " + datum);
 			wr = wr.replace(".", ",");
 			fh.writeFile(wr);
 			befehl(ui,fh);

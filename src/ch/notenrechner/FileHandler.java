@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import java.time.*;
 
 public class FileHandler {
 	
@@ -104,7 +104,7 @@ public class FileHandler {
 	private Note readNextNote(Scanner s) {
 		try {
 			if(s.hasNext()) {
-				return new Note(s.nextDouble(), s.next());
+				return new Note(s.nextDouble(), s.next(), LocalDate.parse(s.next()));
 			}else {
 				return null;
 			}
