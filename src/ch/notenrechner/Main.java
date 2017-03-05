@@ -33,7 +33,7 @@ public class Main {
 			System.out.println("Es sind noch keine Noten vorhanden!");
 		}else {
 			for(Note j: al) {
-				System.out.println(j.wert + " "+ j.fach);
+				System.out.println(j.getWert() + " "+ j.getFach());
 			}
 		}
 		System.out.println();
@@ -57,7 +57,7 @@ public class Main {
 				befehl(ui, fh);
 			}
 			for(Note j: al) {
-				durchschnitt += j.wert;
+				durchschnitt += j.getWert();
 			}
 			durchschnitt /= al.size();
 			System.out.println("Der Durchschnitt beträgt " + durchschnitt + ".");
@@ -82,7 +82,7 @@ public class Main {
 			}
 			System.out.println("Geben sie die Zeile der Note ein, die gelöscht werden soll!");
 			for(Note j: al) {
-				System.out.println(count+1 + j.wert + " "+ j.fach);
+				System.out.println(count+1 + j.getWert() + " "+ j.getFach());
 				count++;
 			}
 			fh.deleteSpecificLine(ui.nextInt());
@@ -98,8 +98,8 @@ public class Main {
 			System.out.println("Geben sie das Fach ein!");
 			fach = ui.next();
 			for(Note j: al) {
-				if(fach.equals(j.fach)) {
-					durchschnitt += j.wert;
+				if(fach.equals(j.getFach())) {
+					durchschnitt += j.getWert();
 					count++;
 				}
 			}
@@ -116,8 +116,8 @@ public class Main {
 			System.out.println("Geben sie das Fach ein!");
 			fach = ui.next();
 			for(Note j: al) {
-				if(fach.equals(j.fach)) {
-					System.out.println(j.wert + " "+ j.fach);
+				if(fach.equals(j.getFach())) {
+					System.out.println(j.getWert() + " "+ j.getFach());
 				}
 			}
 
@@ -132,7 +132,7 @@ public class Main {
 			System.out.println("Geben sie das Fach ein!");
 			fach = ui.next();
 			while(count<al.size()) {
-				if(fach.equals(al.get(count).fach)) {
+				if(fach.equals(al.get(count).getFach())) {
 					dl.add(count+1);
 				}
 				count++;
@@ -155,9 +155,9 @@ public class Main {
 			System.out.println("Alle Noten wurden gelöscht!");
 			befehl(ui, fh);
 			break;
-      case "x":
-         System.exit(0);
-         break;
+		case "x":
+			System.exit(0);
+			break;
 		default: 
 			System.out.println("Der Befehl wurde nicht gefunden!");
 			befehl(ui, fh);
