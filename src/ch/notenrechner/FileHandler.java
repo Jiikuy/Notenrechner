@@ -104,7 +104,7 @@ public class FileHandler {
 	private Note readNextNote(Scanner s) {
 		try {
 			if(s.hasNext()) {
-				return new Note(s.nextDouble(), s.next(), LocalDate.parse(s.next()));
+				return new Note(s.nextDouble(), s.next(), LocalDate.parse(s.next()), s.next());
 			}else {
 				return null;
 			}

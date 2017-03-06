@@ -5,6 +5,7 @@ public class Note {
 	private double wert;
 	private String fach;
 	private LocalDate datum;
+	private String kommentar;
 	public double getWert() {
 		return wert;
 	}
@@ -29,10 +30,18 @@ public class Note {
 		this.datum = datum;
 	}
 
-	
-	public Note(double wert, String fach, LocalDate datum) {
+	public String getKommentar() {
+		return kommentar;
+	}
+
+	public void setKommentar(String kommentar) {
+		this.kommentar = kommentar;
+	}
+	public Note(double wert, String fach, LocalDate datum, String kommentar) {
 		this.wert = wert;
 		this.fach = fach;
         this.datum = datum;
+        this.kommentar = kommentar;
 	}
+
 }

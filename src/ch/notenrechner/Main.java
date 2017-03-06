@@ -33,7 +33,7 @@ public class Main {
 			System.out.println("Es sind noch keine Noten vorhanden!");
 		}else {
 			for(Note j: al) {
-				System.out.println(j.getWert() + " "+ j.getFach() + " " + j.getDatum());
+				System.out.println(j.getWert() + " "+ j.getFach() + " " + j.getDatum() + " " + j.getKommentar());
 			}
 		}
 		System.out.println();
@@ -73,7 +73,9 @@ public class Main {
             String datum = ui.next();
             datum = datum.replace(".", "-");
             datum = datum.replace(":", "-");
-			String wr = (notenwert + " " + fach + " " + datum);
+            System.out.println("Geben sie einen Kommentar ein!");
+            String kommentar = ui.next();
+            String wr = (notenwert + " " + fach + " " + datum + " " + kommentar);
 			wr = wr.replace(".", ",");
 			fh.writeFile(wr);
 			befehl(ui,fh);
@@ -86,7 +88,7 @@ public class Main {
 			}
 			System.out.println("Geben sie die Zeile der Note ein, die gelöscht werden soll!");
 			for(Note j: al) {
-				System.out.println(count+1 + j.getWert() + " "+ j.getFach() + " " + j.getDatum());
+				System.out.println(count+1 + " " +  j.getWert() + " "+ j.getFach() + " " + j.getDatum() + " " + j.getKommentar());
 				count++;
 			}
 			fh.deleteSpecificLine(ui.nextInt());
@@ -121,7 +123,7 @@ public class Main {
 			fach = ui.next();
 			for(Note j: al) {
 				if(fach.equals(j.getFach())) {
-					System.out.println(j.getWert() + " "+ j.getFach() + " " + j.getDatum());
+					System.out.println(j.getWert() + " "+ j.getFach() + " " + j.getDatum() + " " + j.getKommentar());
 				}
 			}
 
