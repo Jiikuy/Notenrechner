@@ -21,8 +21,8 @@ public class Note {
 		this.fach = fach;
 	}
 
-	public LocalDate getDatum() {
-		return datum;
+	public String getDatum() {
+		return datum.getDayOfMonth() + "." + datum.getMonthValue() + "." + datum.getYear();
 	}
 
 	public void setDatum(LocalDate datum) {
@@ -30,9 +30,9 @@ public class Note {
 	}
 
 	
-	public Note(double wert2, String fach2, LocalDate datum2) {
-		wert = wert2;
-		fach = fach2;
-        datum = datum2;
+	public Note(double wert, String fach, LocalDate datum) {
+		this.wert = wert;
+		this.fach = fach;
+        this.datum = datum;
 	}
 }

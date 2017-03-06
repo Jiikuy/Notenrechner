@@ -86,7 +86,7 @@ public class Main {
 			}
 			System.out.println("Geben sie die Zeile der Note ein, die gelöscht werden soll!");
 			for(Note j: al) {
-				System.out.println(count+1 + j.getWert() + " "+ j.getFach());
+				System.out.println(count+1 + j.getWert() + " "+ j.getFach() + " " + j.getDatum());
 				count++;
 			}
 			fh.deleteSpecificLine(ui.nextInt());
@@ -121,7 +121,7 @@ public class Main {
 			fach = ui.next();
 			for(Note j: al) {
 				if(fach.equals(j.getFach())) {
-					System.out.println(j.getWert() + " "+ j.getFach());
+					System.out.println(j.getWert() + " "+ j.getFach() + " " + j.getDatum());
 				}
 			}
 
