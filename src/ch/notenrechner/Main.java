@@ -29,17 +29,20 @@ public class Main {
 		String fach = "";
 		double durchschnitt = 0;
         System.out.println();
+        //Alle Noten und Durchschnitt aller Noten ausgeben
 		if(!fh.f.exists() || al.isEmpty()) {
 			System.out.println("Es sind noch keine Noten vorhanden!");
 		}else {
 			for(Note j: al) {
 				System.out.println(j.getWert() + " "+ j.getFach() + " " + j.getDatum() + " " + j.getKommentar());
+                durchschnitt += j.getWert();
 			}
+            durchschnitt /= al.size();
+			System.out.println("Durchschnitt: " + durchschnitt + ".");
 		}
 		System.out.println();
 		System.out.println("Welcher Befehl soll ausgeführt werden?");
 		System.out.println("Folgendes ist möglich:");
-		System.out.println("Durchschnitt aller Noten ausgeben: d");
 		System.out.println("Eine Note hinzufügen: a");
 		System.out.println("Eine bestimmte Note löschen: r");
 		System.out.println("Alle Noten eines Fachs ausgeben: fp");
@@ -48,21 +51,8 @@ public class Main {
 		System.out.println("WARNUNG! ALLE Noten löschen: ar");
 		System.out.println("Das Programm schliessen: x");
 		String b = ui.next();
-		/* Hier bestimmt die Methode, welcher Vorgang ausgeführt werden soll. Der String b ist dabei der Befehl.*/
+		//Hier bestimmt die Methode, welcher Vorgang ausgeführt werden soll. Der String b ist dabei der Befehl.
 		switch (b) {
-		// Durchschnitt aller Noten
-		case "d":
-			if(!fh.f.exists() || al.isEmpty()) {
-				System.out.println("Es sind noch keine Noten vorhanden!");
-				befehl(ui, fh);
-			}
-			for(Note j: al) {
-				durchschnitt += j.getWert();
-			}
-			durchschnitt /= al.size();
-			System.out.println("Der Durchschnitt beträgt " + durchschnitt + ".");
-			befehl(ui, fh);
-			break;
 		// Note hinzufügen
 		case "a":
 			System.out.println("Geben sie den Notenwert ein!");
