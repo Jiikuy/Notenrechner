@@ -16,7 +16,7 @@ public class FileHandler {
 	private BufferedWriter fo;
 	private String fileName = "";
 	
-	public void deleteSpecificLine(int...line) {
+	public void deleteSpecificLine(ArrayList<Integer> line) {
 		ArrayList<String> fc = new ArrayList<String>();
 		File fn = new File(fileName + ".new");
 		File f = new File(fileName);
@@ -27,8 +27,8 @@ public class FileHandler {
 				fc.add(s.nextLine());
 			}
 			s.close();
-			while(count<line.length) {
-				fc.set(line[count]-1, "");
+			while(count<line.size()) {
+				fc.set(line.get(count)-1, "");
 				count++;
 			}
 			count = 0;
@@ -60,11 +60,15 @@ public class FileHandler {
 		
 		
 	}
+	
 	public void writeFile(String w) {
+		boolean isEmpty = readFile().isEmpty();
 		try {
-			if(f.exists()) {
+			if(f.exists() && !isEmpty) {
 				fo = new BufferedWriter(new FileWriter(f, true));
 				fo.newLine();
+			}else if(f.exists() && isEmpty) {
+				fo = new BufferedWriter(new FileWriter(f, true));
 			}else {
 				f.createNewFile();
 				fo = new BufferedWriter(new FileWriter(f, true));

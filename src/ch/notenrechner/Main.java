@@ -81,7 +81,8 @@ public class Main {
 				System.out.println(count+1 + " " +  j.getWert() + " "+ j.getFach() + " " + j.getDatum() + " " + j.getKommentar());
 				count++;
 			}
-			fh.deleteSpecificLine(ui.nextInt());
+			dl.add(ui.nextInt());
+			fh.deleteSpecificLine(dl);
 			System.out.println("Die Note wurde gelöscht!");
 			befehl(ui, fh);
 			break;
@@ -133,7 +134,7 @@ public class Main {
 				}
 				count++;
 			}
-			fh.deleteSpecificLine(dl.stream().mapToInt(i->i).toArray());
+			fh.deleteSpecificLine(dl);
 			System.out.println("Die Noten wurden gelöscht!");
 			befehl(ui, fh);
 			break;
