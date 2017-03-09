@@ -37,6 +37,12 @@ public class Note {
 	public void setKommentar(String kommentar) {
 		this.kommentar = kommentar;
 	}
+	
+	@Override
+	public String toString() {
+		return getWert() + " " + getFach() + " " + getDatum() + " " + getKommentar();
+		
+	}
 	public Note(double wert, String fach, LocalDate datum, String kommentar) {
 		this.wert = wert;
 		this.fach = fach;

@@ -34,7 +34,7 @@ public class Main {
 			System.out.println("Es sind noch keine Noten vorhanden!");
 		}else {
 			for(Note j: al) {
-				System.out.println(j.getWert() + " "+ j.getFach() + " " + j.getDatum() + " " + j.getKommentar());
+				System.out.println(j.toString());
                 durchschnitt += j.getWert();
 			}
             durchschnitt /= al.size();
@@ -78,7 +78,7 @@ public class Main {
 			}
 			System.out.println("Geben sie die Zeile der Note ein, die gelöscht werden soll!");
 			for(Note j: al) {
-				System.out.println(count+1 + " " +  j.getWert() + " "+ j.getFach() + " " + j.getDatum() + " " + j.getKommentar());
+				System.out.println(count+1 + " " +  j.toString());
 				count++;
 			}
 			dl.add(ui.nextInt());
@@ -114,7 +114,7 @@ public class Main {
 			fach = ui.next();
 			for(Note j: al) {
 				if(fach.equals(j.getFach())) {
-					System.out.println(j.getWert() + " "+ j.getFach() + " " + j.getDatum() + " " + j.getKommentar());
+					System.out.println(j.toString());
 				}
 			}
 
