@@ -40,17 +40,7 @@ public class Main {
             durchschnitt /= al.size();
 			System.out.println("Durchschnitt: " + durchschnitt + ".");
 		}
-		System.out.println();
-		System.out.println("Welcher Befehl soll ausgeführt werden?");
-		System.out.println("Folgendes ist möglich:");
-		System.out.println("Eine Note hinzufügen: a");
-		System.out.println("Eine bestimmte Note löschen: r");
-		System.out.println("Alle Noten eines Fachs ausgeben: fp");
-		System.out.println("Durchschnitt eines Fachs ausgeben: fd");
-		System.out.println("Alle Noten eines Fachs löschen: fr"); 
-		System.out.println("WARNUNG! ALLE Noten löschen: ar");
-		System.out.println("Das Programm schliessen: x");
-		String b = ui.next();
+		String b = userDialog(ui);
 		//Hier bestimmt die Methode, welcher Vorgang ausgeführt werden soll. Der String b ist dabei der Befehl.
 		switch (b) {
 		// Note hinzufügen
@@ -161,5 +151,19 @@ public class Main {
 		}
 		
 		
+	}
+	
+	public static String userDialog(Scanner ui) {
+		System.out.println();
+		System.out.println("Welcher Befehl soll ausgeführt werden?");
+		System.out.println("Folgendes ist möglich:");
+		System.out.println("Eine Note hinzufügen: a");
+		System.out.println("Eine bestimmte Note löschen: r");
+		System.out.println("Alle Noten eines Fachs ausgeben: fp");
+		System.out.println("Durchschnitt eines Fachs ausgeben: fd");
+		System.out.println("Alle Noten eines Fachs löschen: fr"); 
+		System.out.println("WARNUNG! ALLE Noten löschen: ar");
+		System.out.println("Das Programm schliessen: x");
+		return ui.next();
 	}
 }
