@@ -1,5 +1,6 @@
 package ch.notenrechner;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -28,6 +29,10 @@ public class Main {
 		int count = 0;
 		String fach = "";
 		double durchschnitt = 0;
+		String notenwert = "";
+        String datum = "";
+        String kommentar = "";
+        String wr = "";
         System.out.println();
         //Alle Noten und Durchschnitt aller Noten ausgeben
 		if(!fh.f.exists() || al.isEmpty()) {
@@ -44,24 +49,55 @@ public class Main {
 		//Hier bestimmt die Methode, welcher Vorgang ausgeführt werden soll. Der String b ist dabei der Befehl.
 		switch (b) {
 		// Note hinzufügen
-		case "a":
+		case "h":
 			System.out.println("Geben sie den Notenwert ein!");
-			String notenwert = ui.next();
+			notenwert = ui.next();
 			System.out.println("Geben sie das Fach ein!");
 			fach = ui.next();
             System.out.println("Geben sie das Datum des Tests ein! (YYYY-MM-TT)");
-            String datum = ui.next();
+            datum = ui.next();
             datum = datum.replace(".", "-");
             datum = datum.replace(":", "-");
             System.out.println("Geben sie einen Kommentar ein!");
-            String kommentar = ui.next();
-            String wr = (notenwert + " " + fach + " " + datum + " " + kommentar);
-			wr = wr.replace(".", ",");
+            ui.nextLine();
+            kommentar = ui.nextLine();
+            wr = (notenwert + " " + fach + " " + datum + " " + kommentar);
+			wr = wr.replace(",", ".");
 			fh.writeFile(wr);
 			befehl(ui,fh);
 			break;
-		// Bestimmte Noten löschen
-		case "r":
+		//Eine Note nach Punkte berchnen
+		case "b":
+			DecimalFormat df = new DecimalFormat("#.###");
+			System.out.println("Geben sie die Anzahl erreichten Punkte ein!");
+			double ePunkte = ui.nextInt();
+			System.out.println("Geben sie die Maximalpunktzahl ein!");
+			double mPunkte = ui.nextInt();
+			double x = (ePunkte * 5) / mPunkte + 1;
+			notenwert = df.format(x);
+			System.out.println(notenwert);
+			System.out.println("Wollen sie die Note speichern? (y/n)");
+			if(ui.next().equals("y")) {
+				System.out.println("Geben sie das Fach ein!");
+				fach = ui.next();
+	            System.out.println("Geben sie das Datum des Tests ein! (YYYY-MM-TT)");
+	            datum = ui.next();
+	            datum = datum.replace(".", "-");
+	            datum = datum.replace(":", "-");
+	            System.out.println("Geben sie einen Kommentar ein!");
+	            ui.nextLine();
+	            kommentar = ui.nextLine();
+	            wr = (notenwert + " " + fach + " " + datum + " " + kommentar);
+				wr = wr.replace(",", ".");
+				fh.writeFile(wr);
+			}else if(ui.next().equals("n")) befehl(ui,fh);
+			else {
+				System.err.println("Bitte geben sie eine gültige Eingabe ein!");
+			}
+			befehl(ui,fh);
+			break;
+		//Bestimmte Noten löschen
+		case "l":
 			if(!fh.f.exists() || al.isEmpty()) {
 				System.out.println("Es sind noch keine Noten vorhanden!");
 				befehl(ui, fh);
@@ -95,7 +131,7 @@ public class Main {
 			befehl(ui, fh);
 			break;
 		//Alle Noten eines Fachs ausgeben
-		case "fp":
+		case "fa":
 			if(!fh.f.exists() || al.isEmpty()) {
 				System.out.println("Es sind noch keine Noten vorhanden!");
 				befehl(ui, fh);
@@ -111,7 +147,7 @@ public class Main {
 			befehl(ui, fh);
 			break;
 		//Alle Noten eines Fachs löschen
-		case "fr":
+		case "fl":
 			if(!fh.f.exists() || al.isEmpty()) {
 				System.out.println("Es sind noch keine Noten vorhanden!");
 				befehl(ui, fh);
@@ -129,7 +165,7 @@ public class Main {
 			befehl(ui, fh);
 			break;
 		//Alle Noten löschen
-		case "ar":
+		case "al":
 			if(!fh.f.exists() || al.isEmpty()) {
 				System.out.println("Es sind noch keine Noten vorhanden!");
 				befehl(ui, fh);
@@ -142,6 +178,7 @@ public class Main {
 			System.out.println("Alle Noten wurden gelöscht!");
 			befehl(ui, fh);
 			break;
+		//Das Programm schliessen
 		case "x":
 			System.exit(0);
 			break;
@@ -157,11 +194,12 @@ public class Main {
 		System.out.println();
 		System.out.println("Welcher Befehl soll ausgeführt werden?");
 		System.out.println("Folgendes ist möglich:");
-		System.out.println("Eine Note hinzufügen: a");
-		System.out.println("Eine bestimmte Note löschen: r");
-		System.out.println("Alle Noten eines Fachs ausgeben: fp");
+		System.out.println("Eine Note hinzufügen: h");
+		System.out.println("Eine Note nach Punkten berechnen: b");
+		System.out.println("Eine bestimmte Note löschen: l");
+		System.out.println("Alle Noten eines Fachs ausgeben: fa");
 		System.out.println("Durchschnitt eines Fachs ausgeben: fd");
-		System.out.println("Alle Noten eines Fachs löschen: fr"); 
+		System.out.println("Alle Noten eines Fachs löschen: fl"); 
 		System.out.println("WARNUNG! ALLE Noten löschen: ar");
 		System.out.println("Das Programm schliessen: x");
 		return ui.next();

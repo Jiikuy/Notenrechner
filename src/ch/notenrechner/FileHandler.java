@@ -108,7 +108,14 @@ public class FileHandler {
 	private Note readNextNote(Scanner s) {
 		try {
 			if(s.hasNext()) {
-				return new Note(s.nextDouble(), s.next(), LocalDate.parse(s.next()), s.next());
+				String d = s.nextLine();
+				String[] x = d.split(" ");
+				String a = " ";
+				for(int i = 2; i<x.length; i++) {
+					a += " ";
+					a +=x[i];
+				}
+				return new Note(Double.valueOf(x[0]), x[1], LocalDate.parse(x[2]), a);
 			}else {
 				return null;
 			}
