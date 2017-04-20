@@ -85,7 +85,7 @@ public class FileHandler {
 	
 	public ArrayList<Note> readFile() {
 		if(!f.exists()) {
-			return null;
+			return new ArrayList<Note>();
 		}
 		try {
 			if(!al.isEmpty()) {
