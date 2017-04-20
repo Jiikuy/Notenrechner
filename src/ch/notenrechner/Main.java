@@ -36,7 +36,7 @@ public class Main {
         System.out.println();
         //Alle Noten und Durchschnitt aller Noten ausgeben
 		if(!fh.f.exists() || al.isEmpty()) {
-			System.out.println("Es sind noch keine Noten vorhanden!");
+			System.out.println("Es sind keine Noten vorhanden!");
 		}else {
 			for(Note j: al) {
 				System.out.println(j.toString());
@@ -215,7 +215,7 @@ public class Main {
 		System.out.println("Alle Noten eines Fachs ausgeben: fa");
 		System.out.println("Durchschnitt eines Fachs ausgeben: fd");
 		System.out.println("Alle Noten eines Fachs löschen: fl"); 
-		System.out.println("WARNUNG! ALLE Noten löschen: ar");
+		System.out.println("WARNUNG! ALLE Noten löschen: al");
 		/* TODO: add settings
 		 * System.out.println("Die Einstellungen öffnen: e"); */
 		System.out.println("Das Programm schliessen: x");
