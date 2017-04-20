@@ -76,8 +76,8 @@ public class Main {
 			double x = (ePunkte * 5) / mPunkte + 1;
 			notenwert = df.format(x);
 			System.out.println(notenwert);
-			System.out.println("Wollen sie die Note speichern? (y/n)");
-			if(ui.next().equals("y")) {
+			System.out.println("Wollen sie die Note speichern? (j/n)");
+			if(ui.next().equals("j")) {
 				System.out.println("Geben sie das Fach ein!");
 				fach = ui.next();
 	            System.out.println("Geben sie das Datum des Tests ein! (YYYY-MM-TT)");
@@ -170,18 +170,29 @@ public class Main {
 				System.out.println("Es sind noch keine Noten vorhanden!");
 				befehl(ui, fh);
 			}
-			System.out.println("Wollen sie wirklich alle Noten löschen? (y/n)");
-			if(ui.next().equals("n")) {
-				befehl(ui,fh);
-			}
-			fh.f.delete();
-			System.out.println("Alle Noten wurden gelöscht!");
+			System.out.println("Wollen sie wirklich alle Noten löschen? (j/n)");
+			if(ui.next().equals("j")) {
+				fh.f.delete();
+				System.out.println("Alle Noten wurden gelöscht!");
+			}else if(ui.next().equals("n")) {
+				System.out.println("Der Vorgang wurde abgebrochen!");
+				befehl(ui, fh);
+			}else
+				System.out.println("Bitte geben sie eine korrekte Eingabe ein!");
+			
 			befehl(ui, fh);
 			break;
 		//Das Programm schliessen
 		case "x":
+			ui.close();
 			System.exit(0);
 			break;
+		/* //Die Einstellungen öffnen
+		case "e":
+			System.out.println("Einstellungen");
+			System.out.println("Ungenügende Noten doppelt kompensieren: k");
+			befehl(ui, fh);
+			break;*/
 		default: 
 			System.out.println("Der Befehl wurde nicht gefunden!");
 			befehl(ui, fh);
@@ -189,6 +200,10 @@ public class Main {
 		
 		
 	}
+	
+/*	public static void settings(Scanner ui) {
+		
+	}*/
 	
 	public static String userDialog(Scanner ui) {
 		System.out.println();
@@ -201,6 +216,8 @@ public class Main {
 		System.out.println("Durchschnitt eines Fachs ausgeben: fd");
 		System.out.println("Alle Noten eines Fachs löschen: fl"); 
 		System.out.println("WARNUNG! ALLE Noten löschen: ar");
+		/* TODO: add settings
+		 * System.out.println("Die Einstellungen öffnen: e"); */
 		System.out.println("Das Programm schliessen: x");
 		return ui.next();
 	}
