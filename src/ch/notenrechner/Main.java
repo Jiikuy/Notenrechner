@@ -5,25 +5,31 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-
+	static Scanner ui = new Scanner(System.in);
+	static FileHandler fh = null;
 	public static void main(String[] args) {
-		Scanner ui = new Scanner(System.in);
-		FileHandler fh = null;
 		System.out.println("Notenrechner by Georg Rieger");
 		System.out.println("");
 		System.out.println("Geben sie den Dateinamen ein!");
-		fh = new FileHandler("."+ System.getProperty("file.separator") +  ui.nextLine() + ".txt");
-		try {
-			befehl(ui, fh);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		String s = ui.nextLine();
+		if(s.isEmpty()) {
+			System.out.println("Bitte geben Sie einen gültigen Dateinamen ein.");
+			main(null);
 		}
+		
+		fh = new FileHandler("."+ System.getProperty("file.separator") + s + ".txt");
+		befehl();
 		
 		ui.close();
 	}
 
-	public static void befehl(Scanner ui, FileHandler fh) throws InterruptedException {
-		Thread.sleep(1000);
+	public static void befehl() {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ArrayList<Note> al = fh.readFile();
 		ArrayList<Integer> dl = new ArrayList<Integer>();
 		int count = 0;
@@ -45,7 +51,7 @@ public class Main {
             durchschnitt /= al.size();
 			System.out.println("Durchschnitt: " + durchschnitt + ".");
 		}
-		String b = userDialog(ui);
+		String b = userDialog();
 		//Hier bestimmt die Methode, welcher Vorgang ausgeführt werden soll. Der String b ist dabei der Befehl.
 		switch (b) {
 		// Note hinzufügen
@@ -64,7 +70,7 @@ public class Main {
             wr = (notenwert + " " + fach + " " + datum + " " + kommentar);
 			wr = wr.replace(",", ".");
 			fh.writeFile(wr);
-			befehl(ui,fh);
+			befehl();
 			break;
 		//Eine Note nach Punkte berchnen
 		case "b":
@@ -90,17 +96,17 @@ public class Main {
 	            wr = (notenwert + " " + fach + " " + datum + " " + kommentar);
 				wr = wr.replace(",", ".");
 				fh.writeFile(wr);
-			}else if(ui.next().equals("n")) befehl(ui,fh);
+			}else if(ui.next().equals("n")) befehl();
 			else {
 				System.err.println("Bitte geben sie eine gültige Eingabe ein!");
 			}
-			befehl(ui,fh);
+			befehl();
 			break;
 		//Bestimmte Noten löschen
 		case "l":
 			if(!fh.f.exists() || al.isEmpty()) {
 				System.out.println("Es sind noch keine Noten vorhanden!");
-				befehl(ui, fh);
+				befehl();
 			}
 			System.out.println("Geben sie die Zeile der Note ein, die gelöscht werden soll!");
 			for(Note j: al) {
@@ -110,13 +116,13 @@ public class Main {
 			dl.add(ui.nextInt());
 			fh.deleteSpecificLine(dl);
 			System.out.println("Die Note wurde gelöscht!");
-			befehl(ui, fh);
+			befehl();
 			break;
 		//Durchschnitt eines Fachs
 		case "fd":
 			if(!fh.f.exists() || al.isEmpty()) {
 				System.out.println("Es sind noch keine Noten vorhanden!");
-				befehl(ui, fh);
+				befehl();
 			}
 			System.out.println("Geben sie das Fach ein!");
 			fach = ui.next();
@@ -128,13 +134,13 @@ public class Main {
 			}
 			durchschnitt /= count;
 			System.out.println("Der Durchschnitt des Fachs " + fach + " beträgt " + durchschnitt + ".");
-			befehl(ui, fh);
+			befehl();
 			break;
 		//Alle Noten eines Fachs ausgeben
 		case "fa":
 			if(!fh.f.exists() || al.isEmpty()) {
 				System.out.println("Es sind noch keine Noten vorhanden!");
-				befehl(ui, fh);
+				befehl();
 			}
 			System.out.println("Geben sie das Fach ein!");
 			fach = ui.next();
@@ -144,13 +150,13 @@ public class Main {
 				}
 			}
 
-			befehl(ui, fh);
+			befehl();
 			break;
 		//Alle Noten eines Fachs löschen
 		case "fl":
 			if(!fh.f.exists() || al.isEmpty()) {
 				System.out.println("Es sind noch keine Noten vorhanden!");
-				befehl(ui, fh);
+				befehl();
 			}
 			System.out.println("Geben sie das Fach ein!");
 			fach = ui.next();
@@ -162,13 +168,13 @@ public class Main {
 			}
 			fh.deleteSpecificLine(dl);
 			System.out.println("Die Noten wurden gelöscht!");
-			befehl(ui, fh);
+			befehl();
 			break;
 		//Alle Noten löschen
 		case "al":
 			if(!fh.f.exists() || al.isEmpty()) {
 				System.out.println("Es sind noch keine Noten vorhanden!");
-				befehl(ui, fh);
+				befehl();
 			}
 			System.out.println("Wollen sie wirklich alle Noten löschen? (j/n)");
 			if(ui.next().equals("j")) {
@@ -176,11 +182,11 @@ public class Main {
 				System.out.println("Alle Noten wurden gelöscht!");
 			}else if(ui.next().equals("n")) {
 				System.out.println("Der Vorgang wurde abgebrochen!");
-				befehl(ui, fh);
+				befehl();
 			}else
 				System.out.println("Bitte geben sie eine korrekte Eingabe ein!");
 			
-			befehl(ui, fh);
+			befehl();
 			break;
 		//Das Programm schliessen
 		case "x":
@@ -191,11 +197,11 @@ public class Main {
 		case "e":
 			System.out.println("Einstellungen");
 			System.out.println("Ungenügende Noten doppelt kompensieren: k");
-			befehl(ui, fh);
+			befehl();
 			break;*/
 		default: 
 			System.out.println("Der Befehl wurde nicht gefunden!");
-			befehl(ui, fh);
+			befehl();
 		}
 		
 		
@@ -205,7 +211,7 @@ public class Main {
 		
 	}*/
 	
-	public static String userDialog(Scanner ui) {
+	public static String userDialog() {
 		System.out.println();
 		System.out.println("Welcher Befehl soll ausgeführt werden?");
 		System.out.println("Folgendes ist möglich:");

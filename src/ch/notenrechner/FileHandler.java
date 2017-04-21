@@ -77,6 +77,7 @@ public class FileHandler {
 			fo.write(w);
 			fo.close();
 		} catch (IOException e) {
+			System.out.println("Die Datei konnte nicht geschrieben werden. Bitte überprüfen Sie, ob Sie die nötigen Rechte haben.");
 			e.printStackTrace();
 		}
 		
@@ -100,6 +101,7 @@ public class FileHandler {
 			lc.close();
 			return al;
 		} catch (FileNotFoundException e) {
+			System.out.println("Die Datei konnte nicht gelesen werden. Bitte überprüfen Sie, ob sie die nötigen Rechte haben.");
 			e.printStackTrace();
 			return null;
 		}
